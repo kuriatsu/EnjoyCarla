@@ -20,7 +20,6 @@
   <node pkg="tf"  type="static_transform_publisher" name="$(arg role_name)lidar_to_velodyne" args="0 0 0 0 0 0 /$(arg role_name)/lidar/lidar1 /velodyne 10" />
 
   <!-- ego_vehicle/cameraFront to camera tf -->
-  <node pkg="tf"  type="static_transform_publisher" name="$(arg role_name)camerafront_to_camera" args="0 0 0 0 0 0 /$(arg role_name)/camera/rgb/front /camera 10" />
+  <node pkg="tf"  type="static_transform_publisher" name="$(arg role_name)camerafront_to_camera" args="0 0 0 0 0 0 /$(arg role_name)/camera/rgb/front /camera 100" />
 
 </launch>
-

@@ -25,7 +25,7 @@
     @todo This is currently disabled. Instead the carla_autoware_bridge publishes a ground-truth /gnss_pose
   -->
   <!--
-  <node pkg="topic_tools" type="relay" name="gnss_relay" args="/carla/ego_vehicle/gnss/gnss1/fix /fix"/> 
+  <node pkg="topic_tools" type="relay" name="gnss_relay" args="/carla/ego_vehicle/gnss/gnss1/fix /fix"/>
   <include file="$(find gnss_localizer)/launch/fix2tfpose.launch"/>
   -->
 
@@ -49,17 +49,18 @@
   <param name="tf_roll" value="$(arg roll)" />
   <param name="localizer" value="velodyne" />
 
-  <!-- 
+  <!--
     # points downsampler #
     Reduces the amount of points. Resulting point cloud is used by ndt_matching
     In:  /points_raw
     Out: /filtered_points
   -->
+<!--
   <include file="$(find points_downsampler)/launch/points_downsample.launch" >
       <arg name="points_topic" value="points_raw_kuri" />
   </include>
-
-  <!-- 
+ -->
+  <!--
     # ndt_matching #
     In:  /filted_points  (filtered pointcloud)
          /gnss_pose      (pose from gnss)

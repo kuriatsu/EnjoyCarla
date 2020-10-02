@@ -41,7 +41,6 @@
     <arg name="goal_point" value="$(arg goal_point)" />
   </include>
 
-  <include file="$(env CARLA_OPENPLANNER_ROOT)/autoware.launch"/>
+  <!-- <include file="$(find carla_autoware_bridge)/openPlanner_launch/autoware.launch"/> -->
 
 </launch>
-

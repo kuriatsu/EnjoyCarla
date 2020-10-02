@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>carla_helper</name>
+  <name>carla_autoware_bridge</name>
   <version>0.0.0</version>
   <description>The carla_helper package</description>
 

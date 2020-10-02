@@ -10,6 +10,7 @@
   <arg name='spawn_point' default=''/>
   <!-- use comma separated format "x,y,z,quat_x,quat_y,quat_z, quat_w" -->
   <arg name="goal_point" default='' />
+  <arg name="map_path" default="$(find carla_autoware_bridge)/autoware-contents/maps/point_cloud_maps"/>
 
   <!--
     #################
@@ -42,21 +43,23 @@
     <arg name="goal_point" value="$(arg goal_point)" />
   </include>
   -->
-  
+
   <!--
     ##############################
     # Map loading                #
     ##############################
   -->
-  <include file="$(find carla_points_map_loader)/launch/carla_points_map_loader.launch"/>
+  <include file="$(find carla_autoware_bridge)/launch/carla_points_map_loader.launch">
+      <arg name="maps_path" value="$(arg map_path)"/>
+  </include>
+
 
   <!--
     ##############################
     # ROS remapping + conversion #
     ##############################
   -->
-  <include file="$(find carla_autoware_bridge)/launch/carla_autoware_bridge_common.launch">
+  <!-- <include file="$(find carla_autoware_bridge)/launch/carla_autoware_bridge_common.launch">
     <arg name="role_name" value='$(arg role_name)'/>
-  </include>
+  </include> -->
 </launch>
-
