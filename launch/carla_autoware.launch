@@ -5,16 +5,16 @@
 
   <arg name='town' default='Town05'/>
   <arg name='role_name' default='ego_vehicle'/>
-
-  <arg name="sensor_definition_file" default='$(find carla_autoware_bridge)/config/sensors.json'/>
   <arg name="vehicle_filter" default='vehicle.toyota.prius*' />
-
   <!--arg name='spawn_point' default=''/-->
   <!-- use comma separated format "x,y,z,roll,pitch,yaw" -->
   <!--Town05-exp-->
-  <arg name="map_path" default="$(find carla_autoware_bridge)/autoware-contents/maps/point_cloud_maps"/>
   <arg name='spawn_point' default='140.2,-2.5,1.0,0,0,180'/>
   <arg name="goal_point" default='' />
+
+  <arg name="sensor_definition_file" default='$(find carla_autoware_bridge)/config/sensors.json'/>
+  <arg name="map_path" default="$(find carla_autoware_bridge)/autoware-contents/maps/point_cloud_maps"/>
+  <arg name="waypoint_path" default="$(find carla_autoware_bridge)/waypoint/Town05_waypoints.csv"/>
 
   <!--
     ##############################
@@ -55,7 +55,9 @@
     #carla helper                #
     ##############################
   -->
-  <node pkg='carla_autoware_bridge' type='carla_waypoint_publisher_node' name='carla_waypoint_publisher'/>
+  <node pkg='carla_autoware_bridge' type='carla_waypoint_publisher_node' name='carla_waypoint_publisher'>
+      <param name="waypoint_path" value="$(arg waypoint_path)"/>
+  </node>
   <node pkg='carla_autoware_bridge' type='fake_ndt_node' name='fake_ndt'/>
 
 

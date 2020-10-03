@@ -30,11 +30,11 @@ WaypointPublisher::WaypointPublisher()
 
 	pub_waypoint = n.advertise<autoware_msgs::LaneArray>("/lane_waypoints_array", 1, true);
 
-	// std::string file_name = "/home/mad-carla/share/Town05_waypoint_short_demo_1.csv";
+	// std::string file_name = "/home/kuriatsu/Source/catkin_ws/src/carla_autoware/waypoint/Town05_waypoints.csv";
     std::string file_name;
-	n.getParam("file_name", file_name);
-	// std::cout << file_name << std::endl;
-    // ROS_INFO(file_name);
+	n.getParam("/carla_waypoint_publisher/waypoint_path", file_name);
+	std::cout << file_name << std::endl;
+    ROS_INFO_STREAM(file_name);
 	readFile(file_name);
 
 }
@@ -54,7 +54,7 @@ void WaypointPublisher::readFile(const std::string &file_name)
 		ROS_ERROR("Cannot Open File!!!");
 		return;
 	}
-	ROS_INFO("read file");
+	ROS_WARN("read file");
 
 	std::getline(ifs, line_buf);
 	while (std::getline(ifs, line_buf))
@@ -67,7 +67,7 @@ void WaypointPublisher::readFile(const std::string &file_name)
 		{
 			list_buf.emplace_back(value);
 		}
-
+        std::cout << std::stof(list_buf.at(4)) << std::endl;
 		in_waypoint.pose.pose.position.x = std::stof(list_buf.at(4));
 		in_waypoint.pose.pose.position.y = std::stof(list_buf.at(5));
 		in_waypoint.pose.pose.position.z = std::stof(list_buf.at(6));
