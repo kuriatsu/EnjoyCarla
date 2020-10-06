@@ -67,11 +67,14 @@ void WaypointPublisher::readFile(const std::string &file_name)
 		{
 			list_buf.emplace_back(value);
 		}
-        std::cout << std::stof(list_buf.at(4)) << std::endl;
-		in_waypoint.pose.pose.position.x = std::stof(list_buf.at(4));
-		in_waypoint.pose.pose.position.y = std::stof(list_buf.at(5));
-		in_waypoint.pose.pose.position.z = std::stof(list_buf.at(6));
-        in_waypoint.pose.pose.orientation = yawToQuat(std::stof(list_buf.at(7)));
+		in_waypoint.pose.pose.position.x = std::stof(list_buf.at(0));
+		in_waypoint.pose.pose.position.y = std::stof(list_buf.at(1));
+		in_waypoint.pose.pose.position.z = std::stof(list_buf.at(2));
+        in_waypoint.pose.pose.orientation = yawToQuat(std::stof(list_buf.at(3)));
+        in_waypoint.twist.twist.linear.x = std::stof(list_buf.at(4));
+        in_waypoint.gid = 1;
+        in_waypoint.wpstate.event_state = 1;
+        in_waypoint.lane_id = 1;
 		out_lane.waypoints.emplace_back(in_waypoint);
 	}
     out_lane.header.stamp = ros::Time::now();
