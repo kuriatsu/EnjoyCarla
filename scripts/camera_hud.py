@@ -172,8 +172,8 @@ class Camera(object):
             if carla_actor.attributes.get('role_name') == args.egoname:
                 ego_vehicle = carla_actor
 
-        # if ego_vehicle is None:
-        #     return
+        if ego_vehicle is None:
+            exit()
 
         camera_bp = world.get_blueprint_library().find('sensor.camera.rgb')
         camera_bp.set_attribute('image_size_x', str(args.res[0]))
