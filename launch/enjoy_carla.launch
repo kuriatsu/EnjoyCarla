@@ -16,7 +16,9 @@
         --goal $(arg  goal_point)
         --egoname $(arg ego_name)
         "/>
+
     <node pkg="enjoy_carla" type="fake_ndt_node" name="fake_ndt"/>
+    <!-- <node pkg="enjoy_carla" type="rotate_camera.py" name="rotate_camera"/> -->
     <!-- <node pkg="enjoy_carla" type="carla_waypoint_publisher_node" name="carla_waypoint_publisher">
         <param name="waypoint_path" value="$(arg waypoint_path)"/>
     </node> -->
