@@ -40,8 +40,8 @@ class RotateCamera():
     def rotateCamera(self, in_msg):
         # euler = euler_from_quaternion([in_msg.x, in_msg.y, in_msg.z, in_msg.w]);
         yaw = math.degrees(in_msg.data)
-        yaw = (yaw // 45) * 45 if yaw >= 0 else (yaw // -45) * (-45)
-        print(euler[2], yaw)
+        yaw = (yaw // 45) * -45 if yaw >= 0 else (yaw // -45) * (45)
+        # print(euler[2], yaw)
         self.camera.set_transform(self.camera_location_list.get(yaw))
 
 
