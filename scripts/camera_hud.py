@@ -32,6 +32,8 @@ import weakref
 import argparse
 import collections
 import math
+import logging
+import datetime
 
 try:
     import pygame
@@ -45,6 +47,7 @@ except ImportError:
 
 VIEW_FOV = 100
 
+logging.basicConfig(filename='/home/kuriatsu/Documents/carla_driving_result/' + datetime.datetime.now().strftime('%y%m%d_%H%M') + '.log', level=logging.INFO)
 
 # ==============================================================================
 # -- Cliant ----------------------------------------------------
@@ -302,7 +305,10 @@ class HUD(object):
                 self.start_time = self.simulation_time
 
             if (ego_loc.x - self.goal_loc[0])**2 + (ego_loc.y - self.goal_loc[1])**2 < 4.0:
+                logging.info('time {}s'.format(self.stop_watch))
+                logging.info('collision {}times'.format(self.collision_num))
                 self.start_time = 0.0
+                self.collision_num = 0
 
             elif self.start_time != 0.0:
                 self.stop_watch = self.simulation_time - self.start_time
@@ -461,7 +467,7 @@ def main():
         metavar='NAME',
         default='ego_vehicle',
         help='vehicle role name (default: "ego_vehicle")')
-        
+
     args, unknown = argparser.parse_known_args()
     print(args.transform)
     try:
@@ -469,8 +475,9 @@ def main():
         client.game_loop(args)
     finally:
         client.set_synchronous_mode(False)
-        client.camera.camera.destroy()
         print('destroy camera')
+        client.camera.camera.destroy()
+
         # if self.camera.spawned_here:
         print('EXIT')
 
