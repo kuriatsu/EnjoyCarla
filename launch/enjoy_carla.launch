@@ -1,11 +1,13 @@
 <launch>
     <!-- <arg name="waypoint_path" default="/home/kuriatsu/Source/catkin_ws/src/enjoy_carla/waypoint/Town05_waypoint_exp.csv"/> -->
-    <arg name="start_point" default="138.851516724 -2.28138899803 0.00914668943733"/>
-    <arg name="goal_point" default="154.993682861 15.7413663864 0.167141854763"/>
+    <arg name="start_point" default="59.9258728027 205.400085449 -0.00475742341951"/>
+    <arg name="goal_point" default="28.0021400452 177.973831177 -0.00487094884738"/>
     <arg name="camera_transform" default="-0.18 -0.2 0.9 0.0 0.0 0.0"/>
     <arg name="camera_res" default="3840x1080"/>
     <arg name="ego_name" default="ego_vehicle"/>
     <arg name="camera_name" default="wide_front"/>
+
+    <!-- <node pkg="enjoy_carla" type="carla_scenario.sh" name="scenario_runnter"/> -->
 
     <node pkg="enjoy_carla" type="camera_hud.py" name="camera_hud"
         args="
