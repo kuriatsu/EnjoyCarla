@@ -85,4 +85,4 @@ add_executable(viz_start_goal_node src/viz_start_goal.cpp)
 target_link_libraries(viz_start_goal_node ${catkin_LIBRARIES})
 
 add_executable(viz_future_motion_node src/viz_future_motion.cpp)
-target_link_libraries(viz_future_motion ${catkin_LIBRARIES})
+target_link_libraries(viz_future_motion_node ${catkin_LIBRARIES})

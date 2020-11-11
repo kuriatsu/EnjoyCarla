@@ -16,7 +16,7 @@ public:
 private:
 	void timerCb(const ros::TimerEvent&);
 	geometry_msgs::Pose gerPoseFromParam(const std::string &string);
-	void initPictogram();
+    void initPictogram(const geometry_msgs::Pose &start, const geometry_msgs::Pose &goal);
 };
 
 
@@ -26,9 +26,9 @@ VizStartGoal::VizStartGoal()
 	pub_pictogram = nh.advertise<jsk_rviz_plugins::PictogramArray>("/start_goal_marker", 1);
 
 	std::string goal, start;
-	nh.getparam("/enjoy_carla/start_pose", start);
-	nh.getparam("/enjoy_carla/start_pose", goal);
-
+	nh.getParam("/viz_start_goal/start", start);
+	nh.getParam("/viz_start_goal/goal", goal);
+    std::cout << gerPoseFromParam(start) << "," << gerPoseFromParam(goal) << std::endl;
 	initPictogram(gerPoseFromParam(start), gerPoseFromParam(goal));
 
 	ros::Duration(1).sleep();
@@ -51,10 +51,10 @@ geometry_msgs::Pose VizStartGoal::gerPoseFromParam(const std::string &string)
 
 	if (buf_list.size() == 4)
 	{
-		out_pose.position.x = buf_list.at(0);
-		out_pose.position.y = buf_list.at(1);
-		out_pose.position.z = buf_list.at(2);
-		buf_quat.setRPY(0.0, 0.0, buf_list.at(3));
+		out_pose.position.x = std::stof(buf_list.at(0));
+		out_pose.position.y = -std::stof(buf_list.at(1));
+		out_pose.position.z = std::stof(buf_list.at(2));
+		buf_quat.setRPY(0.0, 0.0, std::stof(buf_list.at(3)));
 		out_pose.orientation = tf2::toMsg(buf_quat);
 	}
 
@@ -83,15 +83,17 @@ void VizStartGoal::initPictogram(const geometry_msgs::Pose &start, const geometr
 	pictogram.mode = jsk_rviz_plugins::Pictogram::PICTOGRAM_MODE;
 	pictogram.character = "fa-circle";
 	pictogram.size = 1.0;
-	pictogram_array.emplace_back(pictogram);
+	m_pictogram_array.pictograms.push_back(pictogram);
 
-	orig_tf_quat = tf2::fromMsg(start.pose.orientation);
+    // orig_tf_quat = tf2::fromMsg(start.orientation);
+    tf2::fromMsg(start.orientation, orig_tf_quat);
+	tf2::fromMsg(start.orientation, orig_tf_quat);
 	new_tf_quat = rot_tf_quat * orig_tf_quat;
 	pictogram.pose.orientation = tf2::toMsg(new_tf_quat);
 	pictogram.mode = jsk_rviz_plugins::Pictogram::STRING_MODE;
 	pictogram.character = "START";
 	pictogram.size = 1.0;
-	pictogram_array.emplace_back(pictogram);
+	m_pictogram_array.pictograms.push_back(pictogram);
 
 	// goal icons
 	pictogram.pose = goal;
@@ -102,21 +104,23 @@ void VizStartGoal::initPictogram(const geometry_msgs::Pose &start, const geometr
 	pictogram.mode = jsk_rviz_plugins::Pictogram::PICTOGRAM_MODE;
 	pictogram.character = "fa-circle";
 	pictogram.size = 1.0;
-	pictogram_array.emplace_back(pictogram);
+	m_pictogram_array.pictograms.push_back(pictogram);
 
-	orig_tf_quat = tf2::fromMsg(start.pose.orientation);
+	// orig_tf_quat = tf2::fromMsg(goal.orientation);
+    tf2::fromMsg(start.orientation, orig_tf_quat);
 	new_tf_quat = rot_tf_quat * orig_tf_quat;
-	pictogram.pose.orientation = tf2::toMsg(new_tf_quat);
+    pictogram.pose.orientation = tf2::toMsg(new_tf_quat);
+    // tf2::toMsg(new_tf_quat, pictogram.pose.orientation);
 	pictogram.mode = jsk_rviz_plugins::Pictogram::STRING_MODE;
 	pictogram.character = "GOAL";
 	pictogram.size = 1.0;
-	pictogram_array.emplace_back(pictogram);
+	m_pictogram_array.pictograms.push_back(pictogram);
 }
 
 
 void VizStartGoal::timerCb(const ros::TimerEvent &)
 {
-	m_pictogram_array.header.stamp = ros::Time::Now();
+	m_pictogram_array.header.stamp = ros::Time::now();
 	m_pictogram_array.header.frame_id = "/map";
 	pub_pictogram.publish(m_pictogram_array);
 }

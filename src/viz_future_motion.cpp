@@ -3,6 +3,7 @@
 #include <geometry_msgs/Vector3.h>
 #include <std_msgs/ColorRGBA.h>
 #include <geometry_msgs/Pose.h>
+#include <autoware_msgs/Lane.h>
 
 class VizFutureMotion
 {
@@ -14,39 +15,40 @@ public:
 	VizFutureMotion();
 
 private:
-	void subWaypoiintsCb();
+	void subWaypointsCb(const autoware_msgs::LaneConstPtr &in_lane);
 };
 
 VizFutureMotion::VizFutureMotion()
 {
 	ros::NodeHandle nh;
 	pub_marker = nh.advertise<visualization_msgs::Marker>("/future_motion", 1);
-	sub_waypoiints = nh.subscribe("final_waypoint", &VizFutureMotion::subWaypoiintsCb, this);
+	sub_waypoiints = nh.subscribe("final_waypoints", 1, &VizFutureMotion::subWaypointsCb, this);
 }
 
 
-void VizFutureMotion::subWaypoiintsCb()
+void VizFutureMotion::subWaypointsCb(const autoware_msgs::LaneConstPtr &in_lane)
 {
 	visualization_msgs::Marker marker;
 	std_msgs::ColorRGBA color;
 
-	marker.header.stamp = ros::Time::now()
+	marker.header.stamp = ros::Time::now();
+    marker.header.frame_id = "/map";
 	marker.type = visualization_msgs::Marker::LINE_STRIP;
 	marker.action = visualization_msgs::Marker::ADD;
 	marker.lifetime = ros::Duration(0.1);
-	marker.scale = geometry_msgs::Vector3{2.0, 0.0, 0.0};
+    marker.scale.x = 2.0;
 
-	for (const auto &waypoint: in_waypoint_list)
+	for (const autoware_msgs::Waypoint &waypoint: in_lane->waypoints)
 	{
-		marker.points.emplace_back(waypoint.pose.position);
-		if (waypoint.velocity > 5.0)
+		marker.points.emplace_back(waypoint.pose.pose.position);
+		if (waypoint.twist.twist.linear.x > 5.0)
 		{
 			color.r = 0.0;
 			color.g = 1.0;
 			color.b = 0.0;
 			color.a = 1.0;
 		}
-		else if (waypoint.velocity > 2.0)
+		else if (waypoint.twist.twist.linear.x > 2.0)
 		{
 			color.r = 0.5;
 			color.g = 0.5;
