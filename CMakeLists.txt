@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   autoware_msgs
   jsk_rviz_plugins
+  visualization_msgs
 )
 
 ## Generate messages in the 'msg' folder
@@ -79,3 +80,9 @@ target_link_libraries(carla_waypoint_publisher_node ${catkin_LIBRARIES})
 
 add_executable(test_node src/test.cpp)
 target_link_libraries(test_node ${catkin_LIBRARIES})
+
+add_executable(viz_start_goal_node src/viz_start_goal.cpp)
+target_link_libraries(viz_start_goal_node ${catkin_LIBRARIES})
+
+add_executable(viz_future_motion_node src/viz_future_motion.cpp)
+target_link_libraries(viz_future_motion ${catkin_LIBRARIES})

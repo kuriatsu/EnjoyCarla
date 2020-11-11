@@ -1,7 +1,7 @@
 <launch>
     <!-- <arg name="waypoint_path" default="/home/kuriatsu/Source/catkin_ws/src/enjoy_carla/waypoint/Town05_waypoint_exp.csv"/> -->
-    <arg name="start_point" default="59.9258728027 205.400085449 -0.00475742341951"/>
-    <arg name="goal_point" default="28.0021400452 177.973831177 -0.00487094884738"/>
+    <arg name="start_point" default="59.9258728027 205.400085449 -0.00475742341951 0.0"/>
+    <arg name="goal_point" default="28.0021400452 177.973831177 -0.00487094884738 0.0"/>
     <arg name="camera_transform" default="-0.18 -0.2 0.9 0.0 0.0 0.0"/>
     <arg name="camera_res" default="3840x1080"/>
     <arg name="ego_name" default="ego_vehicle"/>
@@ -21,6 +21,11 @@
 
     <node pkg="enjoy_carla" type="fake_ndt_node" name="fake_ndt"/>
     <node pkg="enjoy_carla" type="rotate_camera.py" name="rotate_camera"/>
+    <node pkg="enjoy_carla" type="viz_start_goal_node" name="viz_start_goal">
+        <param name="start" value="$(arg start_point)"/>
+        <param name="goal" value="$(arg goal_point)"/>
+    </node>
+    <node pkg="enjoy_carla" type="viz_future_motion_node" name="viz_future_motion" />
     <!-- <node pkg="enjoy_carla" type="carla_waypoint_publisher_node" name="carla_waypoint_publisher">
         <param name="waypoint_path" value="$(arg waypoint_path)"/>
     </node> -->

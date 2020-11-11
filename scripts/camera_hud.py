@@ -443,9 +443,9 @@ def main():
     argparser.add_argument(
         '-s' ,'--start',
         metavar='x,y',
-        default='145.649108887 -1.90140223503 0.14900586009',
+        default='145.649108887 -1.90140223503 0.14900586009 0.0',
         type=float,
-        nargs=3,
+        nargs=4,
         help='start position where the timer starts')
     argparser.add_argument(
         '-t','--transform',
@@ -458,9 +458,9 @@ def main():
     argparser.add_argument(
         '-g' ,'--goal',
         metavar='x y',
-        default='-145.308700562 91.4853286743 0.0420927219093',
+        default='-145.308700562 91.4853286743 0.0420927219093 0.0',
         type=float,
-        nargs=3,
+        nargs=4,
         help='goal position where the timer stops')
     argparser.add_argument(
         '-e', '--egoname',
