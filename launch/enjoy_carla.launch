@@ -1,7 +1,12 @@
 <launch>
     <!-- <arg name="waypoint_path" default="/home/kuriatsu/Source/catkin_ws/src/enjoy_carla/waypoint/Town05_waypoint_exp.csv"/> -->
-    <arg name="start_point" default="59.9258728027 205.400085449 -0.00475742341951 0.0"/>
-    <arg name="goal_point" default="28.0021400452 177.973831177 -0.00487094884738 0.0"/>
+    <arg name="town" default="Town05"/>
+
+    <arg name="start_point" default="300.7 -172.2 0.0 -179.6" if="$(eval town=='Town04')"/>
+    <arg name="start_point" default="48.7 205.1 0.0 -90.0" if="$(eval town=='Town05')"/>
+    <arg name="goal_point" default="311.0 -184.2 0.0 90.0" if="$(eval town=='Town04')"/>
+    <arg name="goal_point" default="28.0 176.4 0.0 180.0" if="$(eval town=='Town05')"/>
+
     <arg name="camera_transform" default="-0.18 -0.2 0.9 0.0 0.0 0.0"/>
     <arg name="camera_res" default="3840x1080"/>
     <arg name="ego_name" default="ego_vehicle"/>
@@ -25,6 +30,75 @@
         <param name="start" value="$(arg start_point)"/>
         <param name="goal" value="$(arg goal_point)"/>
     </node>
+
+    <!-- <node pkg="rostopic" type="rostopic" name="goal"
+        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
+            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
+            pose:{
+                position:{
+                    x: -137.572967529,
+                    y: 196.955810547,
+                    z: 0.0
+                },
+                orientation:{
+                    x: 0.0,
+                    y: 0.0,
+                    z: 0.999675584863,
+                    w: 0.0254700810477
+                }
+            }"
+    if="$(eval town=='Town04')"/>
+    <node pkg="rostopic" type="rostopic" name="goal_2"
+        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
+            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
+            pose:{
+                position:{
+                    x: 51.2292060852,
+                    y: -205.399230957,
+                    z: 0.0
+                },
+                orientation:{
+                    x: 0.0,
+                    y: 0.0,
+                    z: -0.00108969993278,
+                    w: 0.999999406277
+                }
+            }"
+    if="$(eval town=='Town04')"/>
+    <node pkg="rostopic" type="rostopic" name="goal"
+        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
+            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
+            pose:{
+                position:{
+                    x: 131.208724976,
+                    y: 302.151000977,
+                    z: 0.0
+                },
+                orientation:{
+                    x: 0.0,
+                    y: 0.0,
+                    z: 0.194585870408,
+                    w: 0.980885487219
+                }
+            }"
+    if="$(eval town=='Town05')"/>
+    <node pkg="rostopic" type="rostopic" name="goal_2"
+        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
+            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
+            pose:{
+                position:{
+                    x: 304.439697266,
+                    y: 172.652389526,
+                    z: 0.0
+                },
+                orientation:{
+                    x: 0.0,
+                    y: 0.0,
+                    z: 0.999987497288,
+                    w: 0.00500052672653
+                }
+            }"
+    if="$(eval town=='Town05')"/> -->
     <node pkg="enjoy_carla" type="viz_future_motion_node" name="viz_future_motion"/>
     <!-- <node pkg="enjoy_carla" type="carla_waypoint_publisher_node" name="carla_waypoint_publisher">
         <param name="waypoint_path" value="$(arg waypoint_path)"/>
