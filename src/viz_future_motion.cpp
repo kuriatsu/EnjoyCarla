@@ -36,7 +36,7 @@ void VizFutureMotion::subWaypointsCb(const autoware_msgs::LaneConstPtr &in_lane)
 	marker.type = visualization_msgs::Marker::LINE_STRIP;
 	marker.action = visualization_msgs::Marker::ADD;
 	marker.lifetime = ros::Duration(0.1);
-    marker.scale.x = 2.0;
+    marker.scale.x = 3.0;
 
 	for (const autoware_msgs::Waypoint &waypoint: in_lane->waypoints)
 	{
@@ -46,21 +46,21 @@ void VizFutureMotion::subWaypointsCb(const autoware_msgs::LaneConstPtr &in_lane)
 			color.r = 0.0;
 			color.g = 1.0;
 			color.b = 0.0;
-			color.a = 1.0;
+			color.a = 0.3;
 		}
 		else if (waypoint.twist.twist.linear.x > 2.0)
 		{
 			color.r = 0.5;
 			color.g = 0.5;
 			color.b = 0.0;
-			color.a = 1.0;
+			color.a = 0.3;
 		}
 		else
 		{
 			color.r = 1.0;
 			color.g = 0.0;
 			color.b = 0.0;
-			color.a = 1.0;
+			color.a = 0.3;
 		}
 		marker.colors.emplace_back(color);
 	}
