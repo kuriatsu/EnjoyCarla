@@ -1,0 +1,17 @@
+<launch>
+    <arg name="town" default="Town05"/>
+
+    <arg name="start_point" default="300.7 -172.2 0.0 90" if="$(eval town=='Town04')"/>
+    <arg name="start_point" default="48.7 205.1 0.0 -90.0" if="$(eval town=='Town05')"/>
+    <arg name="goal_point" default="311.0 -184.2 0.0 180.0" if="$(eval town=='Town04')"/>
+    <arg name="goal_point" default="28.0 176.4 0.0 179.0" if="$(eval town=='Town05')"/>
+
+    <node pkg="enjoy_carla" type="fake_ndt_node" name="fake_ndt"/>
+    <node pkg="enjoy_carla" type="rotate_camera.py" name="rotate_camera"/>
+    <node pkg="enjoy_carla" type="viz_start_goal_node" name="viz_start_goal" output="screen">
+        <param name="start" value="$(arg start_point)"/>
+        <param name="goal" value="$(arg goal_point)"/>
+    </node>
+
+    <node pkg="enjoy_carla" type="viz_future_motion_node" name="viz_future_motion"/>
+</launch>

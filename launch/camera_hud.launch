@@ -1,0 +1,23 @@
+<launch>
+    <arg name="town" default="Town05"/>
+
+    <arg name="start_point" default="300.7 -172.2 0.0 90" if="$(eval town=='Town04')"/>
+    <arg name="start_point" default="48.7 205.1 0.0 -90.0" if="$(eval town=='Town05')"/>
+    <arg name="goal_point" default="311.0 -184.2 0.0 180.0" if="$(eval town=='Town04')"/>
+    <arg name="goal_point" default="28.0 176.4 0.0 179.0" if="$(eval town=='Town05')"/>
+
+    <arg name="camera_transform" default="-0.18 -0.2 0.9 0.0 0.0 0.0"/>
+    <arg name="camera_res" default="3840x1080"/>
+    <arg name="ego_name" default="ego_vehicle"/>
+    <arg name="camera_name" default="wide_front"/>
+
+    <node pkg="enjoy_carla" type="camera_hud.py" name="camera_hud"
+        args="
+        --cameraname $(arg camera_name)
+        --res $(arg camera_res)
+        --start $(arg start_point)
+        --transform $(arg camera_transform)
+        --goal $(arg  goal_point)
+        --egoname $(arg ego_name)
+        "/>
+</launch>
