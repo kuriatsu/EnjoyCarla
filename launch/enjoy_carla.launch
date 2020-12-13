@@ -16,7 +16,7 @@
     <arg name="ego_name" default="ego_vehicle"/>
     <arg name="camera_name" default="wide_front"/>
 
-    <!-- <node pkg="enjoy_carla" type="carla_scenario.sh" name="scenario_runnter"/> -->
+    <!-- <node pkg="enjoy_carla" type="carla_scenario.sh" name="scenario_runnter" args="$(arg town)"/> -->
 
     <node pkg="enjoy_carla" type="camera_hud.py" name="camera_hud"
         args="
