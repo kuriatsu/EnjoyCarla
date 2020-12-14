@@ -278,7 +278,7 @@ class HUD(object):
         self.collision_num = 0
         self.last_collision_point = None
         self.last_collision_frame = 0
-        self.round = 0
+        self.round = -1
         self.is_on_start_point = False
         self.is_on_goal_point = False
         self.is_started = False
