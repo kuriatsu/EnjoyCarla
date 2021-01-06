@@ -2,12 +2,14 @@
     <!-- <arg name="waypoint_path" default="/home/kuriatsu/Source/catkin_ws/src/enjoy_carla/waypoint/Town05_waypoint_exp.csv"/> -->
     <arg name="town" default="Town05"/>
 
-    <arg name="start_point" default="229.2 133.4 -0.0 -90.0" if="$(eval town=='Town01')"/>
+    <arg name="start_point" default="108.6 133.6 0.0 -90.0" if="$(eval town=='Town01')"/>
+    <!-- <arg name="start_point" default="229.2 133.4 -0.0 -90.0" if="$(eval town=='Town01')"/> -->
     <arg name="start_point" default="194.5 -173.3 0.3 90.0" if="$(eval town=='Town04')"/>
     <!-- <arg name="start_point" default="300.7 -172.2 0.0 90" if="$(eval town=='Town04')"/> -->
     <arg name="start_point" default="48.7 205.1 0.0 -90.0" if="$(eval town=='Town05')"/>
     <arg name="goal_point" default="88.5 116.2 0.0 180.0" if="$(eval town=='Town01')"/>
-    <arg name="goal_point" default="190.6 -307.3 0.1 90.0" if="$(eval town=='Town04')"/>
+    <arg name="goal_point" default="199.0 -179.8 0.1 180.0" if="$(eval town=='Town04')"/>
+    <!-- <arg name="goal_point" default="190.6 -307.3 0.1 90.0" if="$(eval town=='Town04')"/>199.0,-179.8,1.0,-0.0,93.4,0.0 -->
     <!-- <arg name="goal_point" default="311.0 -184.2 0.0 180.0" if="$(eval town=='Town04')"/> -->
     <arg name="goal_point" default="28.0 176.4 0.0 179.0" if="$(eval town=='Town05')"/>
 
