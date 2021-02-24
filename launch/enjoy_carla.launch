@@ -18,6 +18,8 @@
     <arg name="ego_name" default="ego_vehicle"/>
     <arg name="camera_name" default="wide_front"/>
 
+    <arg name="touch_device" default="/dev/input/event16" />
+
     <!-- <node pkg="enjoy_carla" type="carla_scenario.sh" name="scenario_runnter" args="$(arg town)"/> -->
 
     <node pkg="enjoy_carla" type="camera_hud.py" name="camera_hud"
@@ -37,74 +39,10 @@
         <param name="goal" value="$(arg goal_point)"/>
     </node>
 
-    <!-- <node pkg="rostopic" type="rostopic" name="goal"
-        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
-            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
-            pose:{
-                position:{
-                    x: -137.572967529,
-                    y: 196.955810547,
-                    z: 0.0
-                },
-                orientation:{
-                    x: 0.0,
-                    y: 0.0,
-                    z: 0.999675584863,
-                    w: 0.0254700810477
-                }
-            }"
-    if="$(eval town=='Town04')"/>
-    <node pkg="rostopic" type="rostopic" name="goal_2"
-        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
-            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
-            pose:{
-                position:{
-                    x: 51.2292060852,
-                    y: -205.399230957,
-                    z: 0.0
-                },
-                orientation:{
-                    x: 0.0,
-                    y: 0.0,
-                    z: -0.00108969993278,
-                    w: 0.999999406277
-                }
-            }"
-    if="$(eval town=='Town04')"/>
-    <node pkg="rostopic" type="rostopic" name="goal"
-        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
-            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
-            pose:{
-                position:{
-                    x: 131.208724976,
-                    y: 302.151000977,
-                    z: 0.0
-                },
-                orientation:{
-                    x: 0.0,
-                    y: 0.0,
-                    z: 0.194585870408,
-                    w: 0.980885487219
-                }
-            }"
-    if="$(eval town=='Town05')"/>
-    <node pkg="rostopic" type="rostopic" name="goal_2"
-        args="pub -1 /move_base_simple/goal geometry_msgs/PoseStamped
-            'header:{seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'map'},
-            pose:{
-                position:{
-                    x: 304.439697266,
-                    y: 172.652389526,
-                    z: 0.0
-                },
-                orientation:{
-                    x: 0.0,
-                    y: 0.0,
-                    z: 0.999987497288,
-                    w: 0.00500052672653
-                }
-            }"
-    if="$(eval town=='Town05')"/> -->
+    <node pkg="enjoy_carla" type="retrieve_touch_event.py" name="retrieve_touch_event_node">
+        <param name="touch_device" value="$(arg touch_device)"/>
+    </node>
+
     <node pkg="enjoy_carla" type="viz_future_motion_node" name="viz_future_motion"/>
     <!-- <node pkg="enjoy_carla" type="carla_waypoint_publisher_node" name="carla_waypoint_publisher">
         <param name="waypoint_path" value="$(arg waypoint_path)"/>
