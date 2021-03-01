@@ -40,7 +40,9 @@ void VizFutureMotion::subWaypointsCb(const autoware_msgs::LaneConstPtr &in_lane)
 
 	for (const autoware_msgs::Waypoint &waypoint: in_lane->waypoints)
 	{
-		marker.points.emplace_back(waypoint.pose.pose.position);
+        geometry_msgs::Point marker_position = waypoint.pose.pose.position;
+        marker_position.z -= 0.5;
+		marker.points.emplace_back(marker_position);
 		if (waypoint.twist.twist.linear.x > 5.0)
 		{
 			color.r = 0.0;
